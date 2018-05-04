@@ -1,0 +1,71 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ arch }}-{{ checksum "build.sbt" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run: sbt test:compile
+      - save_cache:
+          paths:
+            - ~/.m2
+            - ~/.ivy2/cache
+            - ~/.sbt
+            - target/resolution-cache
+            - target/streams
+            - project/target/resolution-cache
+            - project/target/streams
+          key: v1-dependencies-{{ arch }}-{{ checksum "build.sbt" }}
+      - run:
+          name: Test
+          command: sbt test:test
+      - store_test_results:
+          path: target/test-reports
+      - run:
+          name: Package
+          command: |
+            mkdir -p workspace
+            echo "version in ThisBuild := \"$(git rev-parse --short HEAD)\"" > version.sbt
+            sbt "assembly"
+            tar -cvzf ./serverless.tar.gz ./serverless.yml ./package.json ./alexa-whats-on.jar ./package-lock.json
+            cp ./serverless.tar.gz ./workspace/serverless.tar.gz
+      - store_artifacts:
+           path: serverless.tar.gz
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - serverless.tar.gz
+
+  deploy:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - attach_workspace:
+          at: ./workspace
+      - run:
+          name: Unpack
+          command: |
+            cp ./workspace/serverless.tar.gz ./serverless.tar.gz
+            tar -xvzf ./serverless.tar.gz
+      - run: npm install
+      - run:
+          name: Deploy to Development
+          command: npm run deploy
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          filters:
+            branches:
+              only: master
+          requires:
+            - build

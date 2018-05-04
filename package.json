@@ -1,0 +1,13 @@
+{
+  "name": "package.json",
+  "description": "",
+  "version": "0.1.0",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless": "^1.26.1",
+    "serverless-plugin-tracing": "^2.0.0"
+  },
+  "scripts": {
+    "deploy": "serverless deploy --stage production"
+  }
+}
