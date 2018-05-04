@@ -21,7 +21,7 @@ package:
 
 functions:
   whats-on:
-    handler: io.igu.whatson.WhatsOnLambda:handle
+    handler: io.igu.whatson.WhatsOnLambda
     events:
       - alexaSkill
 
