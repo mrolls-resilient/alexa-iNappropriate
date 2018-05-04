@@ -8,6 +8,11 @@ import io.github.mkotsur.aws.handler.Lambda._
 import io.igu.meetup.v2.ConciergeClientComponent
 import io.igu.whatson.model.AlexaResponse
 
+
+class WhatsOnLambda extends Lambda[Json, AlexaResponse] with WhatsOnLambdaComponent with ConciergeClientComponent {
+  val conciergeClient: ConciergeClient = new ConciergeClient {}
+}
+
 trait WhatsOnLambdaComponent extends LazyLogging {
   self: Lambda[Json, AlexaResponse] with ConciergeClientComponent =>
 
@@ -16,8 +21,4 @@ trait WhatsOnLambdaComponent extends LazyLogging {
 
     ???
   }
-}
-
-class WhatsOnLambda extends Lambda[Json, AlexaResponse] with WhatsOnLambdaComponent with ConciergeClientComponent {
-  val conciergeClient: ConciergeClient = new ConciergeClient {}
 }
