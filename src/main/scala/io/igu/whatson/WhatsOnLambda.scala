@@ -3,16 +3,14 @@ package io.igu.whatson
 import com.amazon.speech.json.SpeechletRequestEnvelope
 import com.amazon.speech.speechlet._
 import com.typesafe.scalalogging.LazyLogging
-import io.circe.Json
 import io.igu.meetup.v2.ConciergeClientComponent
-import io.igu.whatson.model.AlexaResponse
 
 
 class WhatsOnLambda extends SpeechletV2 with WhatsOnLambdaComponent with ConciergeClientComponent {
   val conciergeClient: ConciergeClient = new ConciergeClient {}
 }
 
-trait WhatsOnLambdaComponent extends LazyLogging with SpeechletV2[Json, AlexaResponse] {
+trait WhatsOnLambdaComponent extends LazyLogging with SpeechletV2 {
   self: ConciergeClientComponent =>
 
   override def onIntent(requestEnvelope: SpeechletRequestEnvelope[IntentRequest]): SpeechletResponse = {
