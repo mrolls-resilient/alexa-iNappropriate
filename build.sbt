@@ -18,7 +18,8 @@ libraryDependencies ++= Seq(
   "com.amazonaws" % "aws-lambda-java-log4j2" % "1.1.0",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.9.0",
   "org.apache.logging.log4j" % "log4j-core" % "2.11.0",
-  "org.apache.logging.log4j" % "log4j-api" % "2.11.0"
+  "org.apache.logging.log4j" % "log4j-api" % "2.11.0",
+  "org.apache.logging.log4j" % "log4j-slf4j-impl" % "2.11.0"
 )
 
 // Assembly config
