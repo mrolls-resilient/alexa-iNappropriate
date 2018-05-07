@@ -1,24 +1,38 @@
 package io.igu.whatson
 
-import com.amazonaws.services.lambda.runtime.Context
+import com.amazon.speech.json.SpeechletRequestEnvelope
+import com.amazon.speech.speechlet._
 import com.typesafe.scalalogging.LazyLogging
 import io.circe.Json
-import io.github.mkotsur.aws.handler.Lambda
-import io.github.mkotsur.aws.handler.Lambda._
 import io.igu.meetup.v2.ConciergeClientComponent
 import io.igu.whatson.model.AlexaResponse
 
 
-class WhatsOnLambda extends Lambda[Json, AlexaResponse] with WhatsOnLambdaComponent with ConciergeClientComponent {
+class WhatsOnLambda extends SpeechletV2 with WhatsOnLambdaComponent with ConciergeClientComponent {
   val conciergeClient: ConciergeClient = new ConciergeClient {}
 }
 
-trait WhatsOnLambdaComponent extends LazyLogging {
-  self: Lambda[Json, AlexaResponse] with ConciergeClientComponent =>
+trait WhatsOnLambdaComponent extends LazyLogging with SpeechletV2[Json, AlexaResponse] {
+  self: ConciergeClientComponent =>
 
-  override def handle(call: Json, context: Context): Either[Throwable, AlexaResponse] = {
-    logger.info("Received alexa call with payload: {}", call)
+  override def onIntent(requestEnvelope: SpeechletRequestEnvelope[IntentRequest]): SpeechletResponse = {
+    logger.info(s"onIntent: $requestEnvelope")
 
     ???
   }
+
+  override def onLaunch(requestEnvelope: SpeechletRequestEnvelope[LaunchRequest]): SpeechletResponse = {
+    logger.info(s"onLaunch: $requestEnvelope")
+
+    ???
+  }
+
+  override def onSessionEnded(requestEnvelope: SpeechletRequestEnvelope[SessionEndedRequest]): Unit = {
+    logger.info(s"onSessionEnded: $requestEnvelope")
+  }
+
+  override def onSessionStarted(requestEnvelope: SpeechletRequestEnvelope[SessionStartedRequest]): Unit = {
+    logger.info(s"onSessionStarted: $requestEnvelope")
+  }
+
 }

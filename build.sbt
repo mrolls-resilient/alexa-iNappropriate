@@ -21,6 +21,7 @@ libraryDependencies ++= Seq(
   "org.apache.logging.log4j" % "log4j-core" % "2.11.0",
   "org.apache.logging.log4j" % "log4j-api" % "2.11.0",
   "ch.qos.logback" % "logback-classic" % "1.2.3",
+  "com.amazon.alexa" % "alexa-skills-kit" % "1.8.1"
 )
 
 // Assembly config
