@@ -1,10 +1,11 @@
 package io.igu.whatson
 
+import java.util.Collections.emptySet
+
 import com.amazon.speech.json.SpeechletRequestEnvelope
 import com.amazon.speech.speechlet._
 import com.typesafe.scalalogging.LazyLogging
 import io.igu.meetup.v2.ConciergeClientComponent
-
 
 class WhatsOnLambda extends SpeechletV2 with WhatsOnLambdaComponent with ConciergeClientComponent {
   val conciergeClient: ConciergeClient = new ConciergeClient {}
@@ -33,4 +34,9 @@ trait WhatsOnLambdaComponent extends LazyLogging with SpeechletV2 {
     logger.info(s"onSessionStarted: $requestEnvelope")
   }
 
+}
+
+import com.amazon.speech.speechlet.lambda.SpeechletRequestStreamHandler
+
+class WhatsOnRequestStreamHandler extends SpeechletRequestStreamHandler(new WhatsOnLambda(), emptySet()) {
 }

@@ -21,7 +21,7 @@ package:
 
 functions:
   whats-on:
-    handler: io.igu.whatson.WhatsOnLambda
+    handler: io.igu.whatson.WhatsOnRequestStreamHandler
     events:
       - alexaSkill: amzn1.ask.skill.00a85479-b70f-4dbf-a963-4cf6bf1b5e5f
 
