@@ -25,5 +25,38 @@ functions:
     events:
       - alexaSkill: amzn1.ask.skill.00a85479-b70f-4dbf-a963-4cf6bf1b5e5f
 
+custom:
+  alexa:
+    vendorId: ${env:AMAZON_VENDOR_ID}
+    clientId: ${env:AMAZON_CLIENT_ID}
+    clientSecret: ${env:AMAZON_CLIENT_SECRET}
+    skills:
+      - id: amzn1.ask.skill.00a85479-b70f-4dbf-a963-4cf6bf1b5e5f
+        skillManifest:
+          publishingInformation:
+            locales:
+              en-US:
+                name: test2
+          apis:
+            custom: {}
+          manifestVersion: '1.0'
+        models:
+          en-US:
+            interactionModel:
+              languageModel:
+                invocationName: hello
+                intents:
+                  - name: AMAZON.CancelIntent
+                    samples: []
+                  - name: AMAZON.HelpIntent
+                    samples: []
+                  - name: AMAZON.StopIntent
+                    samples: []
+                  - name: HelloWorldIntent
+                    samples:
+                    - hello
+                    - say hello
+                    - hello world
+
 plugins:
   - serverless-plugin-tracing

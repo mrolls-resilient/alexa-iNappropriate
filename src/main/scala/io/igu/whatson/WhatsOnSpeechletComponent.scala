@@ -29,11 +29,13 @@ trait WhatsOnSpeechletComponent {
       val request = requestEnvelope.getRequest
       logger.info("onIntent requestId={}, sessionId={}", request.getRequestId, requestEnvelope.getSession.getSessionId)
       val intent = request.getIntent
-      val intentName = if (intent != null) intent.getName
-      else null
-      if ("HelloWorldIntent" == intentName) getHelloResponse
-      else if ("AMAZON.HelpIntent" == intentName) getHelpResponse
-      else getAskResponse("HelloWorld", "This is unsupported.  Please try something else.")
+      val intentName = if (intent != null) intent.getName else null
+
+      intentName match {
+        case "HelloWorldIntent" || "AMAZON.HelpIntent" => getHelloResponse
+        case _                                         => askResponse("HelloWorld", "This is unsupported. Please try something else.")
+      }
+
     }
 
     def onSessionEnded(requestEnvelope: SpeechletRequestEnvelope[SessionEndedRequest]): Unit = {
@@ -43,7 +45,7 @@ trait WhatsOnSpeechletComponent {
 
     private def getWelcomeResponse = {
       val speechText = "Welcome to the Alexa Skills Kit, you can say hello"
-      getAskResponse("HelloWorld", speechText)
+      askResponse("HelloWorld", speechText)
     }
 
     private def getHelloResponse = {
@@ -57,7 +59,7 @@ trait WhatsOnSpeechletComponent {
 
     private def getHelpResponse = {
       val speechText = "You can say hello to me!"
-      getAskResponse("HelloWorld", speechText)
+      askResponse("HelloWorld", speechText)
     }
 
     private def getSimpleCard(title: String, content: String) = {
@@ -79,7 +81,7 @@ trait WhatsOnSpeechletComponent {
       reprompt
     }
 
-    private def getAskResponse(cardTitle: String, speechText: String) = {
+    private def askResponse(cardTitle: String, speechText: String) = {
       val card = getSimpleCard(cardTitle, speechText)
       val speech = getPlainTextOutputSpeech(speechText)
       val reprompt = getReprompt(speech)
