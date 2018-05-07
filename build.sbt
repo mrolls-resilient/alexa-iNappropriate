@@ -29,7 +29,6 @@ test in assembly := {}
 
 assemblyMergeStrategy in assembly := {
   case PathList(ps@_*) if ps.last == "Log4j2Plugins.dat" => MergeStrategy.last
-  case x                                                 =>
-    val oldStrategy = (assemblyMergeStrategy in assembly).value
-    oldStrategy(x)
+  case PathList("META-INF", xs@_*)                       => MergeStrategy.discard
+  case x                                                 => MergeStrategy.first
 }
