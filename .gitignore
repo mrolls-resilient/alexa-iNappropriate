@@ -9,6 +9,8 @@ project/boot/
 
 .serverless/
 
+alexa-whats-on.jar
+
 /out/
 
 .idea_modules/
