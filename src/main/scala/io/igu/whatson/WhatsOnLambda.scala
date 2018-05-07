@@ -38,5 +38,5 @@ trait WhatsOnLambdaComponent extends LazyLogging with SpeechletV2 {
 
 import com.amazon.speech.speechlet.lambda.SpeechletRequestStreamHandler
 
-class WhatsOnRequestStreamHandler extends SpeechletRequestStreamHandler(new WhatsOnLambda(), emptySet()) {
+class WhatsOnRequestStreamHandler extends SpeechletRequestStreamHandler(new WhatsOnLambda(), emptySet[String]()) {
 }
