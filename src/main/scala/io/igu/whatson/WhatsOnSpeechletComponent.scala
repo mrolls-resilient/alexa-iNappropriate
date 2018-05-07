@@ -2,7 +2,8 @@ package io.igu.whatson
 
 
 import com.amazon.speech.json.SpeechletRequestEnvelope
-import com.amazon.speech.speechlet._
+import com.amazon.speech.speechlet.{IntentRequest, LaunchRequest, SessionEndedRequest, SessionStartedRequest, SpeechletResponse, _}
+import com.amazon.speech.ui.{OutputSpeech, PlainTextOutputSpeech, Reprompt, SimpleCard}
 import com.typesafe.scalalogging.LazyLogging
 import io.igu.meetup.v2.ConciergeClientComponent
 
@@ -13,24 +14,76 @@ trait WhatsOnSpeechletComponent {
   trait WhatsOnSpeechlet extends LazyLogging with SpeechletV2 {
     self: ConciergeClientComponent =>
 
-    override def onIntent(requestEnvelope: SpeechletRequestEnvelope[IntentRequest]): SpeechletResponse = {
-      logger.info(s"onIntent: $requestEnvelope")
 
-      ???
+    def onSessionStarted(requestEnvelope: SpeechletRequestEnvelope[SessionStartedRequest]): Unit = {
+      logger.info("onSessionStarted requestId={}, sessionId={}", requestEnvelope.getRequest.getRequestId, requestEnvelope.getSession.getSessionId)
+      // any initialization logic goes here
     }
 
-    override def onLaunch(requestEnvelope: SpeechletRequestEnvelope[LaunchRequest]): SpeechletResponse = {
-      logger.info(s"onLaunch: $requestEnvelope")
-
-      ???
+    def onLaunch(requestEnvelope: SpeechletRequestEnvelope[LaunchRequest]): SpeechletResponse = {
+      logger.info("onLaunch requestId={}, sessionId={}", requestEnvelope.getRequest.getRequestId, requestEnvelope.getSession.getSessionId)
+      getWelcomeResponse
     }
 
-    override def onSessionEnded(requestEnvelope: SpeechletRequestEnvelope[SessionEndedRequest]): Unit = {
-      logger.info(s"onSessionEnded: $requestEnvelope")
+    def onIntent(requestEnvelope: SpeechletRequestEnvelope[IntentRequest]): SpeechletResponse = {
+      val request = requestEnvelope.getRequest
+      logger.info("onIntent requestId={}, sessionId={}", request.getRequestId, requestEnvelope.getSession.getSessionId)
+      val intent = request.getIntent
+      val intentName = if (intent != null) intent.getName
+      else null
+      if ("HelloWorldIntent" == intentName) getHelloResponse
+      else if ("AMAZON.HelpIntent" == intentName) getHelpResponse
+      else getAskResponse("HelloWorld", "This is unsupported.  Please try something else.")
     }
 
-    override def onSessionStarted(requestEnvelope: SpeechletRequestEnvelope[SessionStartedRequest]): Unit = {
-      logger.info(s"onSessionStarted: $requestEnvelope")
+    def onSessionEnded(requestEnvelope: SpeechletRequestEnvelope[SessionEndedRequest]): Unit = {
+      logger.info("onSessionEnded requestId={}, sessionId={}", requestEnvelope.getRequest.getRequestId, requestEnvelope.getSession.getSessionId)
+      // any cleanup logic goes here
+    }
+
+    private def getWelcomeResponse = {
+      val speechText = "Welcome to the Alexa Skills Kit, you can say hello"
+      getAskResponse("HelloWorld", speechText)
+    }
+
+    private def getHelloResponse = {
+      val speechText = "Hello world"
+      // Create the Simple card content.
+      val card = getSimpleCard("HelloWorld", speechText)
+      // Create the plain text output.
+      val speech = getPlainTextOutputSpeech(speechText)
+      SpeechletResponse.newTellResponse(speech, card)
+    }
+
+    private def getHelpResponse = {
+      val speechText = "You can say hello to me!"
+      getAskResponse("HelloWorld", speechText)
+    }
+
+    private def getSimpleCard(title: String, content: String) = {
+      val card = new SimpleCard
+      card.setTitle(title)
+      card.setContent(content)
+      card
+    }
+
+    private def getPlainTextOutputSpeech(speechText: String) = {
+      val speech = new PlainTextOutputSpeech
+      speech.setText(speechText)
+      speech
+    }
+
+    private def getReprompt(outputSpeech: OutputSpeech) = {
+      val reprompt = new Reprompt
+      reprompt.setOutputSpeech(outputSpeech)
+      reprompt
+    }
+
+    private def getAskResponse(cardTitle: String, speechText: String) = {
+      val card = getSimpleCard(cardTitle, speechText)
+      val speech = getPlainTextOutputSpeech(speechText)
+      val reprompt = getReprompt(speech)
+      SpeechletResponse.newAskResponse(speech, reprompt, card)
     }
 
   }
