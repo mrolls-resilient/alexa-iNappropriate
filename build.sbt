@@ -1,10 +1,10 @@
-name := "alexa-whats-on"
+name := "iNappropriate"
 
 version := "0.1"
 
 scalaVersion := "2.12.5"
 
-assemblyJarName in assembly := "alexa-whats-on.jar"
+assemblyJarName in assembly := "alexa-iNappropriate.jar"
 
 
 val circeVersion = "0.9.3"

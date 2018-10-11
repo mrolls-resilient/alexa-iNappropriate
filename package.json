@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "dependencies": {},
   "devDependencies": {
-    "serverless": "^1.26.1",
+    "serverless": "^1.32.0",
     "serverless-alexa-skills": "0.0.6",
     "serverless-plugin-tracing": "^2.0.0"
   },

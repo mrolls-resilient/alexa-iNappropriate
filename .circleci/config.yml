@@ -33,7 +33,7 @@ jobs:
             mkdir -p workspace
             echo "version in ThisBuild := \"$(git rev-parse --short HEAD)\"" > version.sbt
             sbt "assembly"
-            tar -cvzf ./serverless.tar.gz ./serverless.yml ./package.json ./alexa-whats-on.jar ./package-lock.json
+            tar -cvzf ./serverless.tar.gz ./serverless.yml ./package.json ./alexa-iNappropriate.jar ./package-lock.json
             cp ./serverless.tar.gz ./workspace/serverless.tar.gz
       - store_artifacts:
            path: serverless.tar.gz
@@ -64,7 +64,7 @@ workflows:
     jobs:
       - build
       - deploy:
-          context: igu-io-production
+          context: resilient-hackathon-production
           filters:
             branches:
               only: master
