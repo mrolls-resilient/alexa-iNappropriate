@@ -28,7 +28,7 @@ trait WhatsOnSpeechletComponent {
       logger.info("onIntent requestId={}, sessionId={}", request.getRequestId, requestEnvelope.getSession.getSessionId)
 
       intent(requestEnvelope).getOrElse {
-        val speechText = "I'm sorry I don't know what to say to that"
+        val speechText = "Oh shit something has gone wrong"
         ResponseSupport.tellResponse("Error", speechText)
       }
     }
@@ -63,7 +63,7 @@ object WhatsOnSpeechletComponent extends WhatsOnSpeechletComponent with Inapprop
   }
 
   override val whatsOnSpeechlet: WhatsOnSpeechlet = new WhatsOnSpeechlet {
-    override val intent: Intent = statusIntent.status ++ inappropriateIntent.inappropriate
+    override val intent: Intent = inappropriateIntent.inappropriate
   }
 
 

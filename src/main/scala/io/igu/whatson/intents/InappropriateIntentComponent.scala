@@ -9,7 +9,7 @@ trait InappropriateIntentComponent {
   trait InappropriateIntent {
 
     def inappropriate = Intent {
-      case "Inappropriate" => getStatusResponse
+      case _ => getStatusResponse
     }
 
     private def getStatusResponse = {
