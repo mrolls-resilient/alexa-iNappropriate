@@ -67,7 +67,8 @@ custom:
                     samples:
                     - is it inappropriate
                     - is it inappropriate to call someone a twat
-                    - is it inappropriate
+                    - is it inappropriate to call Scott an Australian idiot
+
 
 plugins:
   - serverless-plugin-tracing
