@@ -9,6 +9,7 @@
     "serverless-plugin-tracing": "^2.0.0"
   },
   "scripts": {
-    "deploy": "serverless deploy --stage production"
+    "deploy": "serverless deploy --stage production",
+    "deploy:alexa": "serverless alexa update && serverless alexa build"
   }
 }

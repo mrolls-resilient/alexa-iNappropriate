@@ -57,6 +57,9 @@ jobs:
       - run:
           name: Deploy
           command: npm run deploy
+      - run:
+          name: Deploy Alexa
+          command: npm run deploy:alexa
 
 workflows:
   version: 2
