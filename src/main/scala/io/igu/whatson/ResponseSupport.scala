@@ -24,12 +24,12 @@ trait ResponseSupport {
     reprompt
   }
 
-  def askResponse(cardTitle: String, speechText: String): SpeechletResponse = {
-    val card = getSimpleCard(cardTitle, speechText)
-    val speech = getPlainTextOutputSpeech(speechText)
-    val reprompt = getReprompt(speech)
-    SpeechletResponse.newAskResponse(speech, reprompt, card)
-  }
+//  def askResponse(cardTitle: String, speechText: String): SpeechletResponse = {
+//    val card = getSimpleCard(cardTitle, speechText)
+//    val speech = getPlainTextOutputSpeech(speechText)
+//    val reprompt = getReprompt(speech)
+//    SpeechletResponse.newAskResponse(speech, reprompt, card)
+//  }
 
   def tellResponse(cardTitle: String, speechText: String): SpeechletResponse = {
     val card = getSimpleCard(cardTitle, speechText)

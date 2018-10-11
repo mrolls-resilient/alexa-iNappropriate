@@ -44,7 +44,7 @@ trait WhatsOnSpeechletComponent {
           |For example Scott may want to check if what he is about to say will get him fired, he would simply say 'alexa is it inappropriate Jeremy Corbyn is a half wit twit'.
           |I would then reply, 'you should be fine, it is the truth after all'
           |""".stripMargin
-      ResponseSupport.askResponse("HelloWorld", speechText)
+      ResponseSupport.tellResponse("HelloWorld", speechText)
     }
 
   }
