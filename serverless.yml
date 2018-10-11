@@ -27,6 +27,7 @@ functions:
     events:
       - alexaSkill: ${self:provider.environment.ALEXA_SKILL_ID}
 
+
 custom:
   alexa:
     vendorId: ${env:AMAZON_VENDOR_ID}
