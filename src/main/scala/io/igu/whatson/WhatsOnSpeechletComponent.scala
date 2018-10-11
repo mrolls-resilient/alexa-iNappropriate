@@ -4,11 +4,7 @@ package io.igu.whatson
 import com.amazon.speech.json.SpeechletRequestEnvelope
 import com.amazon.speech.speechlet.{IntentRequest, LaunchRequest, SessionEndedRequest, SessionStartedRequest, SpeechletResponse, _}
 import com.typesafe.scalalogging.LazyLogging
-import io.igu.meetup.v2.ConciergeClientComponent
-import io.igu.meetup.v3.StatusClientComponent
-import io.igu.meetup.v3.member.ProfileClientComponent
-import io.igu.whatson.intents.{FindWhatsOnIntentComponent, HelloWorldIntentComponent, StatusIntentComponent}
-import io.igu.whatson.services.WhatsOnServiceComponent
+import io.igu.whatson.intents.{InappropriateIntentComponent, StatusIntentComponent}
 
 trait WhatsOnSpeechletComponent {
 
@@ -51,14 +47,20 @@ trait WhatsOnSpeechletComponent {
 
 }
 
-object WhatsOnSpeechletComponent extends WhatsOnSpeechletComponent with StatusIntentComponent {
+object WhatsOnSpeechletComponent extends WhatsOnSpeechletComponent with InappropriateIntentComponent with StatusIntentComponent {
   self =>
 
-  override val statusIntent: StatusIntent = new StatusIntent with StatusClientComponent {
-    override val statusClient: StatusClient = new StatusClient {}
+  override val statusIntent: StatusIntent = new StatusIntent {
+
+  }
+
+  override val inappropriateIntent: InappropriateIntent = new InappropriateIntent {
+
   }
 
   override val whatsOnSpeechlet: WhatsOnSpeechlet = new WhatsOnSpeechlet {
     override val intent: Intent = statusIntent.status
   }
+
+
 }

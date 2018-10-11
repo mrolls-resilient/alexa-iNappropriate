@@ -38,7 +38,7 @@ custom:
           publishingInformation:
             locales:
               en-GB:
-                name: Watson
+                name: iNappropriate
           apis:
             custom:
               endpoint:
@@ -46,12 +46,11 @@ custom:
                   arn:aws:lambda:eu-west-1:${env:AMAZON_ACCOUNT_ID}:function:alexa-iNappropriate-production-is-this-inappropriate
           manifestVersion: '1.0'
 
-
         models:
           en-GB:
             interactionModel:
               languageModel:
-                invocationName: inappropriate
+                invocationName: is it inappropriate
                 intents:
                   - name: AMAZON.CancelIntent
                     samples: []
@@ -59,21 +58,16 @@ custom:
                     samples: []
                   - name: AMAZON.StopIntent
                     samples: []
-                  - name: HelloWorldIntent
-                    samples:
-                    - hello
-                    - say hello
-                    - hello world
                   - name: Status
                     samples:
                     - what the status is
                     - if they are healthy
                     - the status
-                  - name: FindWhatsOn
+                  - name: Inappropriate
                     samples:
-                    - whats on
-                    - if there is anything good on
-                    - whats on near me
+                    - is it inappropriate
+                    - is it inappropriate to call someone a twat
+                    - is it inappropriate
 
 plugins:
   - serverless-plugin-tracing

@@ -2,18 +2,18 @@ package io.igu.whatson.intents
 
 import io.igu.whatson.{Intent, ResponseSupport}
 
-trait StatusIntentComponent {
+trait InappropriateIntentComponent {
 
-  val statusIntent: StatusIntent
+  val inappropriateIntent: InappropriateIntent
 
-  trait StatusIntent {
+  trait InappropriateIntent {
 
     def status = Intent {
-      case "Status" => getStatusResponse
+      case "Inappropriate" => getStatusResponse
     }
 
     private def getStatusResponse = {
-      val speechText = "Everything looks healthy"
+      val speechText = "Yes... Yes it is"
       ResponseSupport.askResponse("Status", speechText)
     }
 
