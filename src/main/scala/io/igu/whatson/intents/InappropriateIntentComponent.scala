@@ -8,7 +8,7 @@ trait InappropriateIntentComponent {
 
   trait InappropriateIntent {
 
-    def status = Intent {
+    def inappropriate = Intent {
       case "Inappropriate" => getStatusResponse
     }
 

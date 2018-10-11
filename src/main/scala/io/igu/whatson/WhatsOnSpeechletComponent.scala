@@ -39,7 +39,11 @@ trait WhatsOnSpeechletComponent {
     }
 
     private def welcomeResponse = {
-      val speechText = "Welcome to the Alexa Skills Kit, you can say hello"
+      val speechText =
+        """Welcome to 'is it inappropriate' detector, a not safe for work detector which should be able to tell you if what you say could get you fired.
+          |For example Scott may want to check if what he is about to say will get him fired, he would simply say 'alexa is it inappropriate Jeremy Corbyn is a half wit twit'.
+          |I would then reply, 'you should be fine, it is the truth after all'
+          |""".stripMargin
       ResponseSupport.askResponse("HelloWorld", speechText)
     }
 
@@ -59,7 +63,7 @@ object WhatsOnSpeechletComponent extends WhatsOnSpeechletComponent with Inapprop
   }
 
   override val whatsOnSpeechlet: WhatsOnSpeechlet = new WhatsOnSpeechlet {
-    override val intent: Intent = statusIntent.status
+    override val intent: Intent = statusIntent.status ++ inappropriateIntent.inappropriate
   }
 
 
