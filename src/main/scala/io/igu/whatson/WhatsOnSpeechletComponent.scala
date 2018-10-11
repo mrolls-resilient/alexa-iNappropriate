@@ -40,9 +40,9 @@ trait WhatsOnSpeechletComponent {
 
     private def welcomeResponse = {
       val speechText =
-        """Welcome to 'is it inappropriate' detector, a not safe for work detector which should be able to tell you if what you say could get you fired.
-          |For example Scott may want to check if what he is about to say will get him fired. He would simply say, 'alexa, is it inappropriate to say Jeremy Corbyn is a half wit idiot who knows nothing about politics'.
-          |I would then reply, 'you should be fine, it is the truth after all'
+        """Welcome to the resilient plc office conversation appropriateness detector. Please note, use of this app may lead to you being fired.
+          |In order to check the appropriateness of a conversation, you could say for example, Alexa, ask if it is inappropriate to say that Scott is an australian wanker. 
+          | I then use machine learning to confirm that yes, it is probably inappropriate to say that Scott is an australian wanker, even if it's true.
           |""".stripMargin
       ResponseSupport.tellResponse("HelloWorld", speechText)
     }
