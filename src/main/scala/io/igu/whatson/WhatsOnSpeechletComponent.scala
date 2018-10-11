@@ -51,24 +51,14 @@ trait WhatsOnSpeechletComponent {
 
 }
 
-object WhatsOnSpeechletComponent extends WhatsOnSpeechletComponent with StatusIntentComponent
-  with HelloWorldIntentComponent with FindWhatsOnIntentComponent {
+object WhatsOnSpeechletComponent extends WhatsOnSpeechletComponent with StatusIntentComponent {
   self =>
 
   override val statusIntent: StatusIntent = new StatusIntent with StatusClientComponent {
     override val statusClient: StatusClient = new StatusClient {}
   }
 
-  override val helloWorldIntent: HelloWorldIntent = new HelloWorldIntent {}
-
-  override val findWhatsOnIntent: FindWhatsOnIntent = new FindWhatsOnIntent with WhatsOnServiceComponent {
-    override val whatsOnService: WhatsOnService = new WhatsOnService with ProfileClientComponent with ConciergeClientComponent {
-      override val profileClient: ProfileClient = new ProfileClient {}
-      override val conciergeClient: ConciergeClient = new ConciergeClient {}
-    }
-  }
-
   override val whatsOnSpeechlet: WhatsOnSpeechlet = new WhatsOnSpeechlet {
-    override val intent: Intent = statusIntent.status ++ helloWorldIntent.helloWorld ++ findWhatsOnIntent.findWhatsOn
+    override val intent: Intent = statusIntent.status
   }
 }

@@ -9,7 +9,7 @@ provider:
   stage: production
   tracing: true
   environment:
-      ALEXA_SKILL_ID: amzn1.ask.skill.0b3febe3-ed76-4f55-b65c-ed2dde2320a7
+      ALEXA_SKILL_ID: amzn1.ask.skill.1bb1ba9c-2b30-4bdb-83a6-1353c091f9c2
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -46,11 +46,12 @@ custom:
                   arn:aws:lambda:eu-west-1:${env:AMAZON_ACCOUNT_ID}:function:alexa-iNappropriate-production-is-this-inappropriate
           manifestVersion: '1.0'
 
+
         models:
           en-GB:
             interactionModel:
               languageModel:
-                invocationName: watson
+                invocationName: inappropriate
                 intents:
                   - name: AMAZON.CancelIntent
                     samples: []
