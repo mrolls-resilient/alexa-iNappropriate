@@ -5,20 +5,20 @@ import com.amazon.speech.ui.{OutputSpeech, PlainTextOutputSpeech, Reprompt, Simp
 
 trait ResponseSupport {
 
-  def getSimpleCard(title: String, content: String): SimpleCard = {
+  private def getSimpleCard(title: String, content: String): SimpleCard = {
     val card = new SimpleCard
     card.setTitle(title)
     card.setContent(content)
     card
   }
 
-  def getPlainTextOutputSpeech(speechText: String): PlainTextOutputSpeech = {
+  private def getPlainTextOutputSpeech(speechText: String): PlainTextOutputSpeech = {
     val speech = new PlainTextOutputSpeech
     speech.setText(speechText)
     speech
   }
 
-  def getReprompt(outputSpeech: OutputSpeech): Reprompt = {
+  private def getReprompt(outputSpeech: OutputSpeech): Reprompt = {
     val reprompt = new Reprompt
     reprompt.setOutputSpeech(outputSpeech)
     reprompt
@@ -29,6 +29,13 @@ trait ResponseSupport {
     val speech = getPlainTextOutputSpeech(speechText)
     val reprompt = getReprompt(speech)
     SpeechletResponse.newAskResponse(speech, reprompt, card)
+  }
+
+  def tellResponse(cardTitle: String, speechText: String): SpeechletResponse = {
+    val card = getSimpleCard(cardTitle, speechText)
+    val speech = getPlainTextOutputSpeech(speechText)
+
+    SpeechletResponse.newTellResponse(speech, card)
   }
 
 }

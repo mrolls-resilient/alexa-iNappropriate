@@ -15,12 +15,7 @@ trait HelloWorldIntentComponent {
     }
 
     private def getHelloResponse = {
-      val speechText = "Hello world"
-      // Create the Simple card content.
-      val card = ResponseSupport.getSimpleCard("HelloWorld", speechText)
-      // Create the plain text output.
-      val speech = ResponseSupport.getPlainTextOutputSpeech(speechText)
-      SpeechletResponse.newTellResponse(speech, card)
+      ResponseSupport.tellResponse("HelloWorld", "Hello World")
     }
   }
 

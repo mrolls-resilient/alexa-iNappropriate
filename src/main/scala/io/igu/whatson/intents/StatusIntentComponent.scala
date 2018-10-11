@@ -14,7 +14,7 @@ trait StatusIntentComponent {
 
     private def getStatusResponse = {
       val speechText = "Everything looks healthy"
-      ResponseSupport.askResponse("Status", speechText)
+      ResponseSupport.tellResponse("Status", speechText)
     }
 
   }

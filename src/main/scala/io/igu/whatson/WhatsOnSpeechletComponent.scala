@@ -29,7 +29,7 @@ trait WhatsOnSpeechletComponent {
 
       intent(requestEnvelope).getOrElse {
         val speechText = "I'm sorry I don't know what to say to that"
-        ResponseSupport.askResponse("Error", speechText)
+        ResponseSupport.tellResponse("Error", speechText)
       }
     }
 
