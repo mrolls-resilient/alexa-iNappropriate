@@ -14,7 +14,7 @@ trait InappropriateIntentComponent {
 
     private def getStatusResponse = {
       val speechText = "Yes... Yes it is"
-      ResponseSupport.askResponse("Status", speechText)
+      ResponseSupport.askResponse("Inappropriate", speechText)
     }
 
   }
