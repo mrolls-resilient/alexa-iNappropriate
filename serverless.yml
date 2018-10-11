@@ -65,9 +65,8 @@ custom:
                     - the status
                   - name: Inappropriate
                     samples:
-                    - is it inappropriate
-                    - is it inappropriate to call someone a twat
-                    - is it inappropriate to call Scott an Australian idiot
+                    - to call someone a twat
+                    - to call Scott an Australian idiot
 
 
 plugins:
